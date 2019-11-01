@@ -1,0 +1,12 @@
+
+interval = 300
+report_to_stdout = false
+chef_license.acceptance = "accept-no-persist"
+
+# Uncomment and replace values to report to Automate.
+# This can also be applied at runtime via `hab config apply`
+[automate]
+enable = "true"
+server_url = "https://${automate_hostname}"
+token = "${automate_token}"
+user = "${automate_user}"

@@ -1,0 +1,67 @@
+////////////////////////////////
+// AWS Connection
+
+aws_region="us-west-2"
+
+aws_profile="solutions-architects"
+
+aws_credentials_file="~/.ssh/credentials"
+
+aws_key_pair_file = "~/.ssh/my_private_key"
+
+aws_key_pair_name = "gsloan_sa"
+
+////////////////////////////////
+// Object Tags
+
+tag_customer="testing"
+
+tag_project="POS_Demo"
+
+tag_name="gsloan"
+
+tag_dept="sales"
+
+tag_contact="gsloan@chef.io"
+
+tag_application="POS"
+
+////////////////////////////////
+// Automate Config
+
+automate_hostname="my_a2.chef-demo.com"
+automate_license = "[REPLACE ME]"
+channel = "current"
+# TLS is not supported in the event stream beta. Uncomment until TLS is supported.
+disable_event_tls = "true"
+//This automate token will be applied to the A2 server and used on the nodes
+automate_token = "[REPLACE ME}"
+
+/////////////////////////////////
+// POS Application Config
+reg_app_package = "retail-register-app"
+reg_app_origin = "gsloan-chef"
+backoffice_app_package = "retail-register-app"
+backoffice_app_origin = "gsloan-chef"
+store1_channel = "Gen1_Prod"
+store2_channel = "Gen1_Prod"
+store3_channel = "Gen2_Prod"
+qa_channel = "unstable"
+
+///////////////////////////////
+// Effortless Infra and Audit Config
+config_package = "config-baseline"
+config_origin = "effortless"
+config_channel = "stable"
+audit_package = "audit-baseline"
+audit_origin = "effortless"
+audit_channel = "stable"
+
+bldr_url = "https://bldr.habitat.sh"
+
+
+//Route52 info
+
+automate_alb_acm_matcher = "*.chef-demo.com"
+automate_alb_r53_matcher = "chef-demo.com."
+
