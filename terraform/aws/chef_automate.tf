@@ -254,7 +254,7 @@ resource "aws_instance" "chef_automate" {
       "sudo echo -e '\"name\":\"eas-pos\",\"active\": true, \"value\": \"${var.automate_token}\", \"id\": \"eas-pos\"' >> $HOME/token_data",
       "sudo curl --insecure -X POST \"https://localhost/apis/iam/v2/tokens\" -H \"api-token: $(sudo cat $HOME/admin_token)\" -d \"{$(sudo cat $HOME/token_data)}\"",
       "sudo echo setting API policies",
-      "sudo echo -e '\"members\":[\"token:national-parks\"]' >> $HOME/policy_data",
+      "sudo echo -e '\"members\":[\"token:eas-pos\"]' >> $HOME/policy_data",
       "sudo curl --insecure -s \"https://localhost/apis/iam/v2/policies/ingest-access/members:add\" -H \"api-token: $(sudo cat $HOME/admin_token)\" -H \"Content-Type: application/json\" -d \"{$(sudo cat $HOME/policy_data)}\"",      
       "sudo cat $HOME/automate-credentials.toml",
     
