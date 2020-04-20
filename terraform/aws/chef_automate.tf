@@ -248,11 +248,16 @@ resource "aws_instance" "chef_automate" {
       "sleep 60",
       "sudo ./chef-automate config patch /tmp/automate-eas-config.toml",
       "sudo chown ubuntu:ubuntu $HOME/automate-credentials.toml",
-      "sudo echo -e $(sudo chef-automate admin-token) > $HOME/admin_token",
+      "sudo echo -e $(sudo chef-automate iam token create cli --admin) > $HOME/admin_token",
       "sudo echo -e \"api-token =\" $(sudo cat $HOME/admin_token) >> $HOME/automate-credentials.toml",
-      "sudo echo -e '\"description\": \"terraform token\", \"active\": true, \"value\": \"${var.automate_token}\", \"id\": \"terraform_token\"' >> $HOME/token_data",
-      "sudo curl --insecure -X POST \"https://${var.automate_hostname}/api/v1/auth/tokens\" -H \"api-token: $(sudo cat $HOME/admin_token)\" -d \"{$(sudo cat $HOME/token_data)}\"",
+      "sudo echo setting speciifc token value via API",
+      "sudo echo -e '\"name\":\"eas-pos\",\"active\": true, \"value\": \"${var.automate_token}\", \"id\": \"eas-pos\"' >> $HOME/token_data",
+      "sudo curl --insecure -X POST \"https://localhost/apis/iam/v2/tokens\" -H \"api-token: $(sudo cat $HOME/admin_token)\" -d \"{$(sudo cat $HOME/token_data)}\"",
+      "sudo echo setting API policies",
+      "sudo echo -e '\"members\":[\"token:eas-pos\"]' >> $HOME/policy_data",
+      "sudo curl --insecure -s \"https://localhost/apis/iam/v2/policies/ingest-access/members:add\" -H \"api-token: $(sudo cat $HOME/admin_token)\" -H \"Content-Type: application/json\" -d \"{$(sudo cat $HOME/policy_data)}\"",      
       "sudo cat $HOME/automate-credentials.toml",
+    
     ]
   }
 
